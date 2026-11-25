@@ -5,7 +5,7 @@ from src.discount_factor import discount_factor
 
 
 def test_zero_maturity_gives_one():
-    # aucune actualisation si T = 0
+    # no discounting when T = 0
     assert discount_factor(0.05, 0) == pytest.approx(1.0)
 
 
@@ -24,12 +24,12 @@ def test_between_zero_and_one_for_positive_rate():
 
 
 def test_decreasing_in_maturity():
-    # plus T est grand, plus l'actualisation est forte
+    # longer maturity -> stronger discounting
     assert discount_factor(0.05, 2.0) < discount_factor(0.05, 1.0)
 
 
 def test_composition_over_periods():
-    # D(T1 + T2) = D(T1) * D(T2) : propriété de la capitalisation continue
+    # D(T1 + T2) = D(T1) * D(T2) with continuous compounding
     assert discount_factor(0.05, 1.5) == pytest.approx(
         discount_factor(0.05, 1.0) * discount_factor(0.05, 0.5)
     )

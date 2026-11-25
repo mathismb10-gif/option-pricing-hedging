@@ -29,7 +29,7 @@ def test_gap_is_zero_when_prices_are_consistent():
 
 
 def test_gap_is_nonzero_for_inconsistent_prices():
-    # les primes 5 (call) et 4 (put) de la partie A violent la parité
+    # premiums 5 (call) and 4 (put) from the payoff notebook violate parity
     assert abs(parity_gap(5.0, 4.0, S0, K, r, T)) > 1.0
 
 

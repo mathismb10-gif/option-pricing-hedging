@@ -12,7 +12,7 @@ def test_known_values_in_the_money():
 
 
 def test_lower_bound_is_zero_when_deep_out_of_the_money():
-    # S0 - K e^{-rT} < 0 : la borne basse est tronquée à 0
+    # S0 - K e^{-rT} < 0: lower bound is floored at 0
     lower, upper = call_bounds(50.0, 100.0, 0.05, 1.0)
     assert lower == 0.0
     assert upper == 50.0
@@ -27,7 +27,7 @@ def test_lower_never_exceeds_upper():
 
 
 def test_zero_rate_zero_maturity_gives_intrinsic_value():
-    # r = 0 ou T = 0 : borne basse = max(S0 - K, 0)
+    # r = 0 or T = 0: lower bound = max(S0 - K, 0)
     lower, _ = call_bounds(120.0, 100.0, 0.0, 1.0)
     assert lower == pytest.approx(20.0)
     lower, _ = call_bounds(120.0, 100.0, 0.05, 0.0)
@@ -35,7 +35,7 @@ def test_zero_rate_zero_maturity_gives_intrinsic_value():
 
 
 def test_lower_bound_increases_with_rate():
-    # plus r est grand, plus K e^{-rT} est petit, donc plus la borne basse est haute
+    # higher r -> smaller K e^{-rT} -> higher lower bound
     low_small_r, _ = call_bounds(100.0, 100.0, 0.01, 1.0)
     low_big_r, _ = call_bounds(100.0, 100.0, 0.08, 1.0)
     assert low_big_r > low_small_r
@@ -55,7 +55,7 @@ def test_vectorized_over_strikes():
 
 
 def test_arbitrage_example_from_exercise():
-    # C = 10 < borne basse 14.39 : le prix viole la borne
+    # C = 10 < lower bound 14.39: price violates the bound
     lower, upper = call_bounds(100.0, 90.0, 0.05, 1.0)
     assert 10.0 < lower
     assert not (lower <= 10.0 <= upper)

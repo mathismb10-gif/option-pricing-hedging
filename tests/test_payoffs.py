@@ -8,7 +8,7 @@ S_T = np.linspace(0, 200, 401)
 
 
 def test_call_known_values():
-    # hors de la monnaie, à la monnaie, dans la monnaie
+    # out of the money, at the money, in the money
     assert call_payoff(80, K) == 0
     assert call_payoff(100, K) == 0
     assert call_payoff(120, K) == 20
@@ -18,7 +18,7 @@ def test_put_known_values():
     assert put_payoff(120, K) == 0
     assert put_payoff(100, K) == 0
     assert put_payoff(80, K) == 20
-    assert put_payoff(0, K) == K  # gain maximal du put = K
+    assert put_payoff(0, K) == K  # max put payoff = K
 
 
 def test_payoffs_non_negative():
@@ -27,12 +27,12 @@ def test_payoffs_non_negative():
 
 
 def test_call_put_difference_equals_forward_payoff():
-    # call - put = S_T - K, pour tout S_T
+    # call - put = S_T - K for every S_T
     assert np.allclose(call_payoff(S_T, K) - put_payoff(S_T, K), S_T - K)
 
 
 def test_at_most_one_leg_in_the_money():
-    # call et put ne peuvent pas être tous deux dans la monnaie
+    # call and put can't both be in the money
     assert np.all(call_payoff(S_T, K) * put_payoff(S_T, K) == 0)
 
 

@@ -1,7 +1,7 @@
-# Environnement virtuel
+# Virtual environment
 .venv/
 
-# Caches Python et pytest
+# Python and pytest caches
 __pycache__/
 *.pyc
 .pytest_cache/
@@ -12,5 +12,5 @@ __pycache__/
 # macOS
 .DS_Store
 
-# Réglages locaux de l'éditeur
+# Local editor settings
 .vscode/
