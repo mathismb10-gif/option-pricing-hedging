@@ -11,3 +11,6 @@ __pycache__/
 
 # macOS
 .DS_Store
+
+# Réglages locaux de l'éditeur
+.vscode/
